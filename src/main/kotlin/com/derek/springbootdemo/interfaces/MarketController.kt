@@ -1,13 +1,27 @@
 package com.derek.springbootdemo.interfaces
 
 import com.derek.springbootdemo.domains.MarketService
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import com.derek.springbootdemo.domains.Order
+import com.derek.springbootdemo.domains.PortfolioService
+import com.derek.springbootdemo.domains.Way
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/market")
-class MarketController(private val marketService: MarketService) {
+class MarketController(
+        private val marketService: MarketService,
+        private val portfolioService: PortfolioService) {
+    companion object {
+        private const val EXECUTIONS_URL = "/executions"
+    }
+
     @GetMapping("/price")
     fun getLastPrice() = marketService.getLastPrice()
+
+    @GetMapping(EXECUTIONS_URL)
+    fun getExecutions() = portfolioService.getExecutions()
+
+    @PostMapping(EXECUTIONS_URL)
+    fun addExecution(@RequestParam size: Int, @RequestParam way: Way) =
+            portfolioService.addExecution(Order(size, way))
 }
