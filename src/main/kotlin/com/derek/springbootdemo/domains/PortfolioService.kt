@@ -1,5 +1,6 @@
 package com.derek.springbootdemo.domains
 
+import com.derek.springbootdemo.domains.Way.Buy
 import org.springframework.stereotype.Service
 
 @Service
@@ -13,4 +14,11 @@ class PortfolioService(private val marketService: MarketService) {
         executions.add(execution)
         return execution
     }
+
+    fun computeNotional(): Double {
+        val (buyExecutions, sellExecutions) = executions.partition { it.order.way == Buy }
+        return buyExecutions.notional() - sellExecutions.notional()
+    }
+
+    private fun List<Execution>.notional() = this.map { it.order.size * it.price }.sum()
 }

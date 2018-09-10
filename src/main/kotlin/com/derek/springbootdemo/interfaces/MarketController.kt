@@ -24,4 +24,7 @@ class MarketController(
     @PostMapping(EXECUTIONS_URL)
     fun addExecution(@RequestParam size: Int, @RequestParam way: Way) =
             portfolioService.addExecution(Order(size, way))
+
+    @GetMapping("$EXECUTIONS_URL/notional")
+    fun computeNotional() = portfolioService.computeNotional()
 }
