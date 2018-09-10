@@ -1,6 +1,6 @@
 package com.derek.springbootdemo.domains
 
-import com.derek.springbootdemo.domains.Way.Buy
+import com.derek.springbootdemo.domains.Order.Way.Buy
 import org.springframework.stereotype.Service
 
 @Service

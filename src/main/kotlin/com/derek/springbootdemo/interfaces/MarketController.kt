@@ -2,8 +2,8 @@ package com.derek.springbootdemo.interfaces
 
 import com.derek.springbootdemo.domains.MarketService
 import com.derek.springbootdemo.domains.Order
+import com.derek.springbootdemo.domains.Order.Way
 import com.derek.springbootdemo.domains.PortfolioService
-import com.derek.springbootdemo.domains.Way
 import org.springframework.web.bind.annotation.*
 
 @RestController
