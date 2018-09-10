@@ -15,10 +15,11 @@ class PortfolioService(private val marketService: MarketService) {
         return execution
     }
 
-    fun computeNotional(product: String?): Double {
-        val (buyExecutions, sellExecutions) = executions
-                .filter { it.order.product == product }
-                .partition { it.order.way == Buy }
+    fun computeNotional(product: String? = null): Double {
+        val filteredExecutions = product?.let {
+            executions.filter { it.order.product == product }
+        } ?: executions
+        val (buyExecutions, sellExecutions) = filteredExecutions.partition { it.order.way == Buy }
         return buyExecutions.notional() - sellExecutions.notional()
     }
 
